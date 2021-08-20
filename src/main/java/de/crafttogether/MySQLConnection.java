@@ -24,25 +24,6 @@ public class MySQLConnection {
         Bukkit.getServer().getScheduler().runTaskAsynchronously(plugin, task);
     }
 
-    public ResultSet query(String statement, final Object... args) throws SQLException {
-        if (args.length > 0) statement = String.format(statement, args);
-        String finalStatement = statement;
-
-        try {
-            connection = dataSource.getConnection();
-            preparedStatement = connection.prepareStatement(finalStatement);
-            resultSet = preparedStatement.executeQuery();
-        }
-        catch (SQLException e) {
-            if (e.getMessage().contains("link failure"))
-                plugin.getLogger().warning("[MySQL]: Couldn't connect to MySQL-Server...");
-            else
-                throw e;
-        }
-
-        return resultSet;
-    }
-
     public int insert(String statement, final Object... args) throws SQLException {
         if (args.length > 0) statement = String.format(statement, args);
         String finalStatement = statement;
@@ -67,35 +48,36 @@ public class MySQLConnection {
         return lastInsertedId;
     }
 
-    public int update(String statement, final Object... args) throws SQLException {
+    public MySQLConnection insertAsync(String statement, final @Nullable Callback<SQLException, Integer> callback, final Object... args) {
         if (args.length > 0) statement = String.format(statement, args);
-        String finalStatement = statement;
+        final String finalStatement = statement;
 
-        int rows = 0;
-        try {
-            connection = dataSource.getConnection();
-            preparedStatement = connection.prepareStatement(finalStatement);
-            rows = preparedStatement.executeUpdate();
-        }
-        catch (SQLException e) {
-            if (e.getMessage().contains("link failure"))
-                plugin.getLogger().warning("[MySQL]: Couldn't connect to MySQL-Server...");
-            else
-                throw e;
-        }
+        executeAsync(() -> {
+            try {
+                int lastInsertedId = insert(finalStatement);
+                assert callback != null;
+                callback.call(null, lastInsertedId);
+            } catch (SQLException e) {
+                if (e.getMessage().contains("link failure"))
+                    plugin.getLogger().warning("[MySQL]: Couldn't connect to MySQL-Server...");
+                else {
+                    assert callback != null;
+                    callback.call(e, 0);
+                }
+            }
+        });
 
-        return rows;
+        return this;
     }
 
-    public Boolean execute(String statement, final Object... args) throws SQLException {
+    public ResultSet query(String statement, final Object... args) throws SQLException {
         if (args.length > 0) statement = String.format(statement, args);
         String finalStatement = statement;
 
-        boolean result = false;
         try {
             connection = dataSource.getConnection();
             preparedStatement = connection.prepareStatement(finalStatement);
-            result = preparedStatement.execute();
+            resultSet = preparedStatement.executeQuery();
         }
         catch (SQLException e) {
             if (e.getMessage().contains("link failure"))
@@ -104,7 +86,7 @@ public class MySQLConnection {
                 throw e;
         }
 
-        return result;
+        return resultSet;
     }
 
     public MySQLConnection queryAsync(String statement, final @Nullable Callback<SQLException, ResultSet> callback, final Object... args) {
@@ -129,26 +111,24 @@ public class MySQLConnection {
         return this;
     }
 
-    public MySQLConnection insertAsync(String statement, final @Nullable Callback<SQLException, Integer> callback, final Object... args) {
+    public int update(String statement, final Object... args) throws SQLException {
         if (args.length > 0) statement = String.format(statement, args);
-        final String finalStatement = statement;
+        String finalStatement = statement;
 
-        executeAsync(() -> {
-            try {
-                int lastInsertedId = insert(finalStatement);
-                assert callback != null;
-                callback.call(null, lastInsertedId);
-            } catch (SQLException e) {
-                if (e.getMessage().contains("link failure"))
-                    plugin.getLogger().warning("[MySQL]: Couldn't connect to MySQL-Server...");
-                else {
-                    assert callback != null;
-                    callback.call(e, 0);
-                }
-            }
-        });
+        int rows = 0;
+        try {
+            connection = dataSource.getConnection();
+            preparedStatement = connection.prepareStatement(finalStatement);
+            rows = preparedStatement.executeUpdate();
+        }
+        catch (SQLException e) {
+            if (e.getMessage().contains("link failure"))
+                plugin.getLogger().warning("[MySQL]: Couldn't connect to MySQL-Server...");
+            else
+                throw e;
+        }
 
-        return this;
+        return rows;
     }
 
     public MySQLConnection updateAsync(String statement, final @Nullable Callback<SQLException, Integer> callback, final Object... args) {
@@ -171,6 +151,26 @@ public class MySQLConnection {
         });
 
         return this;
+    }
+
+    public Boolean execute(String statement, final Object... args) throws SQLException {
+        if (args.length > 0) statement = String.format(statement, args);
+        String finalStatement = statement;
+
+        boolean result = false;
+        try {
+            connection = dataSource.getConnection();
+            preparedStatement = connection.prepareStatement(finalStatement);
+            result = preparedStatement.execute();
+        }
+        catch (SQLException e) {
+            if (e.getMessage().contains("link failure"))
+                plugin.getLogger().warning("[MySQL]: Couldn't connect to MySQL-Server...");
+            else
+                throw e;
+        }
+
+        return result;
     }
 
     public MySQLConnection executeAsync(String statement, final @Nullable Callback<SQLException, Boolean> callback, final Object... args) {
