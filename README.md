@@ -51,7 +51,7 @@ MySQLAdapter = new MySQLAdapter(this, myCfg);
 
 Usage:
 ------
-* ###Insert:
+* ### Insert:
 **Sync:**
 ```java
 MySQLConnection connection = MySQLAdapter.getConnection();
@@ -108,7 +108,7 @@ connection.insertAsync("INSERT INTO `%spersons` " +
     connection.close(); // Close preparedStatement (if set), resultSet (if set) & connection
 }, connection.getTablePrefix(), name, age);
 ``` 
-* ###Query
+* ### Query
 **Sync:**
 ```java
 MySQLConnection connection = MySQLAdapter.getConnection();
@@ -160,7 +160,7 @@ connection.queryAsync("SELECT * FROM `%spersons`", (err, result) -> {
     }
 }, connection.getTablePrefix());
 ``` 
-* ###Update
+* ### Update
 **Sync:**
 ```java
 MySQLConnection connection = MySQLAdapter.getConnection();
@@ -208,7 +208,7 @@ connection.updateAsync("UPDATE `%spersons` SET " +
     connection.close(); // Close preparedStatement (if set), resultSet (if set) & connection
 }, connection.getTablePrefix(), name, age, userId);
 ``` 
-* ###Execute
+* ### Execute
 **Sync:**
 ```java
 MySQLConnection connection = MySQLAdapter.getConnection();
