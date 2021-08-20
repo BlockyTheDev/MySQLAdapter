@@ -110,7 +110,7 @@ connection.insertAsync("INSERT INTO `%spersons` " +
     if (err != null)
         err.printStackTrace();
     
-    Integer personId = lastInsertedId;
+    int personId = lastInsertedId;
     
     connection.close(); // Close preparedStatement (if set), resultSet (if set) & connection
 }, connection.getTablePrefix(), name, age);
@@ -152,8 +152,9 @@ connection.queryAsync("SELECT * FROM `%spersons`", (err, result) -> {
     // Process Results
     try {
         while (result.next()) {
+            int age = result.getInt("id");
             String name = result.getString("name");
-            Integer age = result.getInt("age");
+        int age = result.getInt("age");
             
             System.out.println("User #" + id + " (" + name + ") is " + age + " years old.");
         }

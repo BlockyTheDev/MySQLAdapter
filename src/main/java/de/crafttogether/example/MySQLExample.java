@@ -58,7 +58,7 @@ public class MySQLExample {
             if (err != null)
                 err.printStackTrace();
 
-            Integer personId = lastInsertedId;
+            int personId = lastInsertedId;
 
             connection.close(); // Close preparedStatement (if set), resultSet (if set) & connection
         }, connection.getTablePrefix(), name, age);
@@ -99,9 +99,11 @@ public class MySQLExample {
             // Process Results
             try {
                 while (result.next()) {
+                    int id = result.getInt("id");
                     String name = result.getString("name");
-                    Integer age = result.getInt("age");
-                    System.out.println(name + " is " + age + " years old.");
+                    int age = result.getInt("age");
+
+                    System.out.println("User #" + id + " (" + name + ") is " + age + " years old.");
                 }
             }
 
@@ -192,7 +194,7 @@ public class MySQLExample {
 
         finally {
             if (success)
-                System.out.println("Statement executed successfully .");
+                System.out.println("Statement executed successfully.");
 
             connection.close(); // Close preparedStatement (if set), resultSet (if set) & connection
         }
@@ -222,7 +224,7 @@ public class MySQLExample {
                 err.printStackTrace();
 
             if (success)
-                System.out.println("Statement executed successfully .");
+                System.out.println("Statement executed successfully.");
 
             connection.close(); // Close preparedStatement (if set), resultSet (if set) & connection
         }, connection.getTablePrefix());
