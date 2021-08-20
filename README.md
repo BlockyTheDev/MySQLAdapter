@@ -154,7 +154,8 @@ connection.queryAsync("SELECT * FROM `%spersons`", (err, result) -> {
         while (result.next()) {
             String name = result.getString("name");
             Integer age = result.getInt("age");
-            System.out.println(name + " is " + age + " years old.");
+            
+            System.out.println("User #" + id + " (" + name + ") is " + age + " years old.");
         }
     }
     
@@ -247,7 +248,7 @@ catch (SQLException ex) {
 
 finally {
     if (success)
-        System.out.println("Statement executed successfully .");
+        System.out.println("Statement executed successfully.");
 
     connection.close(); // Close preparedStatement (if set), resultSet (if set) & connection
 }
@@ -277,7 +278,7 @@ connection.executeAsync(statement, (err, success) -> {
         err.printStackTrace();
 
     if (success)
-        System.out.println("Statement executed successfully .");
+        System.out.println("Statement executed successfully.");
 
     connection.close(); // Close preparedStatement (if set), resultSet (if set) & connection
 }, connection.getTablePrefix());
