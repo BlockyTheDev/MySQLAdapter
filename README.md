@@ -24,7 +24,14 @@ Continuous integration:
 
 Setup:
 ------
-**1. Create an instance of MySQLConfig:**
+**1. Imports**
+```java
+import de.crafttogether.MySQLAdapter;
+import de.crafttogether.MySQLConfig;
+import de.crafttogether.MySQLConnection;
+```
+
+**2. Create an instance of MySQLConfig:**
 ```java
 MySQLConfig myCfg = new MySQLConfig();
 myCfg.setHost("127.0.0.1");
@@ -35,7 +42,7 @@ myCfg.setDatabase("db"));
 myCfg.setTablePrefix("tb_");
 ```
 
-**2. Validate Inputs:**
+**3. Validate Inputs:**
 ```java
 if (!myCfg.checkInputs() || myCfg.getDatabase() == null) {
     getLogger().warning("[MySQL]: Invalid configuration! Please check your config.yml");
@@ -44,7 +51,7 @@ if (!myCfg.checkInputs() || myCfg.getDatabase() == null) {
 }
 ```
 
-**3. Create an instance of MySQLAdapter:**
+**4. Create an instance of MySQLAdapter:**
 ```java
 MySQLAdapter = new MySQLAdapter(this, myCfg);
 ```
