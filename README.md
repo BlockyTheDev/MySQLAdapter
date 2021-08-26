@@ -68,7 +68,7 @@ String name = "Bob";
 int age = 18;
 
 try {
-    connection.insert("INSERT INTO `%spersons` " +
+    int personId = connection.insert("INSERT INTO `%spersons` " +
     "(" +
         "`name`, " +
         "`age`" +
