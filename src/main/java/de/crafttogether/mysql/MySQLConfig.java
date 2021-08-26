@@ -1,4 +1,4 @@
-package de.crafttogether;
+package de.crafttogether.mysql;
 
 public class MySQLConfig {
     String host;

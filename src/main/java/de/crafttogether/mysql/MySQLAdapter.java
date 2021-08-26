@@ -1,4 +1,4 @@
-package de.crafttogether;
+package de.crafttogether.mysql;
 
 import com.zaxxer.hikari.HikariDataSource;
 import org.bukkit.plugin.Plugin;

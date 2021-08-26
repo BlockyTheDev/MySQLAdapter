@@ -25,10 +25,11 @@ Continuous integration:
 Setup:
 ------
 **1. Imports**
+
 ```java
-import de.crafttogether.MySQLAdapter;
-import de.crafttogether.MySQLConfig;
-import de.crafttogether.MySQLConnection;
+import de.crafttogether.mysql.MySQLAdapter;
+import de.crafttogether.mysql.MySQLConfig;
+import de.crafttogether.mysql.MySQLConnection;
 ```
 
 **2. Create an instance of MySQLConfig:**

@@ -1,7 +1,7 @@
 package de.crafttogether.example;
 
-import de.crafttogether.MySQLAdapter;
-import de.crafttogether.MySQLConnection;
+import de.crafttogether.mysql.MySQLAdapter;
+import de.crafttogether.mysql.MySQLConnection;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -1,6 +1,7 @@
-package de.crafttogether;
+package de.crafttogether.mysql;
 
 import com.zaxxer.hikari.HikariDataSource;
+import de.crafttogether.Callback;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.Nullable;
