@@ -39,7 +39,7 @@ myCfg.setHost("127.0.0.1");
 myCfg.setPort(3306);
 myCfg.setUsername("root");
 myCfg.setPassword("");
-myCfg.setDatabase("db"));
+myCfg.setDatabase("db");
 myCfg.setTablePrefix("tb_");
 ```
 
