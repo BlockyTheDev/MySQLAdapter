@@ -60,7 +60,7 @@ MySQLAdapter mysqlAdapter = new MySQLAdapter(this, myCfg);
 **5. Create a new connection:**
 ```java
 // Get from instance
-MySQLConnection mysqlAdapter = mysqlAdapter.getConnection();
+MySQLConnection connection = mysqlAdapter.getConnection();
 
 // Static access
 MySQLConnection connection = MySQLAdapter.getConnection();
