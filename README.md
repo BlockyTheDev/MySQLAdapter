@@ -54,7 +54,24 @@ if (!myCfg.checkInputs() || myCfg.getDatabase() == null) {
 
 **4. Create an instance of MySQLAdapter:**
 ```java
-MySQLAdapter = new MySQLAdapter(this, myCfg);
+MySQLAdapter mysqlAdapter = new MySQLAdapter(this, myCfg);
+```
+
+**5. Create a new connection:**
+```java
+// Get from instance
+MySQLConnection mysqlAdapter = mysqlAdapter.getConnection();
+
+// Static access
+MySQLConnection connection = MySQLAdapter.getConnection();
+
+// Close connection
+connection.close();
+```
+
+**6. Shutdown MySQLAdapter:**
+```java
+mysqlAdapter.disconnect();
 ```
 
 Usage:
