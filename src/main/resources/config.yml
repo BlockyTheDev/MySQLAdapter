@@ -1,0 +1,14 @@
+Settings:
+  # Should the plugin initiate a 'global' connection-pool?
+  # (Use this if your Plugin doesn't create it's own pool)
+  Connect: false
+
+  # Enable debug-output
+  Debug: true
+
+# MySQL Credentials
+MySQL:
+  Host: '127.0.0.1'
+  Port: 3306
+  Username: 'username'
+  Password: 'password'
