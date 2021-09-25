@@ -1,4 +1,6 @@
-name: MySQLAdapter
-version: 1.0
-api-version: 1.17
-main: de.crafttogether.MySQLAdapterPlugin
+name: CTMySQLAdapter
+version: ${project.version}
+api-version: 1.13
+main: de.crafttogether.mysql.CTMySQLAdapter
+author: J0schlZ
+website: https://craft-together.de/
